@@ -1,7 +1,7 @@
 
-# GoIT Core HW-07
+# Assistant Bot | HW-07
 
-This repository contains the solution for hw assignment #07. It involves the creation of an assistant bot with functionalities such as adding and editing contacts, displaying birthdays, and managing a contact book.
+This repository contains the solution for Assistant Bot assignment #07. It involves the creation of an assistant bot with functionalities such as adding and editing contacts, displaying birthdays, and managing a contact book.
 
 ## Features
 - **Add Contact**: Add new contacts to the address book.
