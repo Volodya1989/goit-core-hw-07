@@ -1,11 +1,16 @@
 from phone import Phone
 from field import Name
+from birthday import Birthday
 
 
 class Record:
     def __init__(self, name):
         self.name = Name(name)
         self.phones = []
+        self.birthday = None
+
+    def add_birthday(self, birthday):
+        self.birthday = Birthday(birthday)
 
     def add_phone(self, phone_number):
         self.phones.append(Phone(phone_number))
