@@ -1,24 +1,37 @@
 from addressbook import AddressBook
-from record import Record
+from assistant_bot import add_birthday, parse_input, change_contact, show_all, show_birthday, add_contact, show_phone, birthdays
 
-# Create an AddressBook instance
-address_book = AddressBook()
+def main():
+    book = AddressBook()
+    print("Welcome to the assistant bot!")
 
-# Create a record for a person
-record1 = Record("John Doe")
-record1.add_phone("1234567890")
+    while True:
+        user_input = input("Enter a command: ")
+        command, *args = parse_input(user_input)
 
-# Add record to the address book
-address_book.add_record(record1)
+        match command:
+            case "close" | "exit":
+                print("Good bye!")
+                break
+            case "hello":
+                print("How can I help you?")
+            case "add":
+                print(add_contact(args, book))
+            case "change":
+                print(change_contact(args, book))
+            case "phone":
+                print(show_phone(args, book))
+            case "all":
+                print(show_all(book))
+            case "add-birthday":
+                print(add_birthday(args, book))
+            case "show-birthday":
+                print(show_birthday(args, book))
+            case "birthdays":
+                print(birthdays(args, book))
+            case _:
+                print("Invalid command.")
 
-# Print the address book
-print(address_book)
 
-# Find a record
-print(address_book.find("John Doe"))
-
-# Edit phone number
-record1.edit_phone("0987654321", "1234567890")
-
-# Print updated address book
-print(address_book)
+if __name__ == "__main__":
+    main()
