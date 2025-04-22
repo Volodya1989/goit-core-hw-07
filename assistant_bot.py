@@ -84,7 +84,7 @@ def show_birthday(args, book):
 
 
 @input_error
-def birthdays(args, book):
+def birthdays(_, book):
     upcoming = book.get_upcoming_birthdays()
     if not upcoming:
         return "No upcoming birthdays."

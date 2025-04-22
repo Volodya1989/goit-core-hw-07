@@ -1,6 +1,6 @@
 
 from field import Field
-from datetime import datetime, date, timedelta
+from datetime import datetime
 
 
 class Birthday(Field):
