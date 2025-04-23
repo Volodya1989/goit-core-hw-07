@@ -1,12 +1,18 @@
 from addressbook import AddressBook
 from assistant_bot import add_birthday, parse_input, change_contact, show_all, show_birthday, add_contact, show_phone, birthdays
 
+
 def main():
     book = AddressBook()
     print("Welcome to the assistant bot!")
 
     while True:
-        user_input = input("Enter a command: ")
+        user_input = input("Enter a command: ").strip()
+
+        if not user_input:
+            print("Please enter a command.")
+            continue  # Skip to next loop
+
         command, *args = parse_input(user_input)
 
         match command:
