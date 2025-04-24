@@ -1,5 +1,5 @@
 from collections import UserDict
-from datetime import date, timedelta
+from datetime import date, timedelta, datetime
 
 
 class AddressBook(UserDict):
@@ -17,16 +17,28 @@ class AddressBook(UserDict):
         today = date.today()
         for record in self.data.values():
             if record.birthday:
-                birthday = record.birthday.value.replace(year=today.year)
-                if birthday < today:
-                    birthday = birthday.replace(year=today.year + 1)
-                if birthday.weekday() in (5, 6):  # Saturday, Sunday
-                    birthday += timedelta(days=7 - birthday.weekday())
-                days_diff = (birthday - today).days
-                if 0 <= days_diff <= days:
-                    upcoming.append(
-                        {"name": record.name.value, "birthday": birthday.strftime("%d.%m.%Y")})
-        return upcoming
+                # Parse the birthday string into a date object
+                try:
+                    bday = datetime.strptime(
+                        record.birthday.value, "%d.%m.%Y").date()
+                except ValueError:
+                    continue  # Skip if the date is invalid
 
-    def __str__(self):
-        return "\n".join(map(str, self.data.values()))
+                birthday_this_year = bday.replace(year=today.year)
+
+                if birthday_this_year < today:
+                    birthday_this_year = birthday_this_year.replace(
+                        year=today.year + 1)
+
+                if birthday_this_year.weekday() in (5, 6):  # Saturday or Sunday
+                    birthday_this_year += timedelta(
+                        days=(7 - birthday_this_year.weekday()))
+
+                days_until_birthday = (birthday_this_year - today).days
+
+                if 0 <= days_until_birthday <= days:
+                    upcoming.append({
+                        "name": record.name.value,
+                        "birthday": birthday_this_year.strftime("%d.%m.%Y")
+                    })
+        return upcoming
